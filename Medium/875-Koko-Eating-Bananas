@@ -1,0 +1,24 @@
+class Solution {
+public:
+    long hoursReq(vector<int>& piles, int k){
+        long req = 0;
+        for(int i = 0; i < piles.size(); i++){
+            req += piles[i] % k == 0 ? piles[i]/k : (piles[i]/k) + 1;
+        }
+        return req;
+    }
+
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int low = 1, high = 0;
+        for(int i = 0; i < piles.size(); i++) high = max(high, piles[i]);
+        cout<<low<<" "<<high<<endl<<endl;
+        while(low <= high){
+            int mid = (low + high)/2;
+            long temp = hoursReq(piles, mid);
+            if(temp > h) low = mid + 1;
+            else high = mid - 1;
+        }
+
+        return low;
+    }
+};
